@@ -2,6 +2,7 @@ package br.com.model;
 
 import br.com.entity.Login;
 import br.com.entity.Session;
+import br.com.entity.SessionID;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -105,6 +106,8 @@ public class UsuarioDAO extends DAO {
         ArrayList<Login> ls = new ArrayList<Login>();
         try {
             abrirBanco();
+            //Login l;
+            //l = new Login();
             String query = "select id_usuario, usuario, senha, email,telefone, saldo, numero_conta, data_criacao FROM usuario";
             ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(query);
             ResultSet tr = ps.executeQuery();
@@ -113,6 +116,60 @@ public class UsuarioDAO extends DAO {
             while (tr.next()) {
                 l = new Login();
                 l.setId_usuario(tr.getInt("id_usuario"));
+                l.setUsuario(tr.getString("usuario"));
+                l.setEmail(tr.getString("email"));
+                l.setTelefone(tr.getInt("telefone"));
+                l.setSaldo(tr.getDouble("saldo"));
+                l.setNumero_conta(tr.getInt("numero_conta"));
+                l.setData_criacao(tr.getString("data_criacao"));
+                ls.add(l);
+            }
+            fecharBanco();
+        } catch (Exception e) {
+            System.out.println("Erro " + e.getMessage());
+        }
+        return ls;
+    }
+    
+    public void PesquisarRegistro(Login l) throws Exception {
+        try {
+            abrirBanco();
+            String query = "select id_usuario, usuario, senha, email,telefone, saldo, numero_conta, data_criacao FROM usuario WHERE id_usuario=(?)";
+            ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(query);
+            //SessionID ssi = new SessionID();
+            //ps.setInt(1, ssi.getSessionid());
+            ResultSet tr = ps.executeQuery();
+            if (tr.next()) {
+                l.setId_usuario(tr.getInt("id_usuario"));
+                l.setUsuario(tr.getString("usuario"));
+                l.setEmail(tr.getString("email"));
+                l.setTelefone(tr.getInt("telefone"));
+                l.setSaldo(tr.getDouble("saldo"));
+                l.setNumero_conta(tr.getInt("numero_conta"));
+                l.setData_criacao(tr.getString("data_criacao"));
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhum resultado encontrado! ");
+            }
+            fecharBanco();
+        } catch (Exception e) {
+            System.out.println("Erro " + e.getMessage());
+        }
+    }
+    
+    public ArrayList<Login> PesquisarApenas() throws Exception {
+        ArrayList<Login> ls = new ArrayList<Login>();
+        try {
+            abrirBanco();
+            Session ss = Session.getInstance();
+            Login l;
+            l = new Login();
+            String query = "select usuario, senha, email,telefone, saldo, numero_conta, data_criacao FROM usuario where id_usuario=(?)";
+            ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(query);
+            ps.setInt(1, ss.getsId_usuario());
+            ResultSet tr = ps.executeQuery();
+            
+            while (tr.next()) {
+                //l.setId_usuario(tr.getInt("id_usuario"));
                 l.setUsuario(tr.getString("usuario"));
                 l.setEmail(tr.getString("email"));
                 l.setTelefone(tr.getInt("telefone"));

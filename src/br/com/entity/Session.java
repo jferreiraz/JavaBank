@@ -76,7 +76,7 @@ public class Session {
 
     private static Session instance;
 
-    private Session() {}
+    public Session() {}
 
     public static Session getInstance() {
         if (instance == null)

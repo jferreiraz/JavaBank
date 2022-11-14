@@ -7,6 +7,7 @@ package br.com.view.login;
 
 import br.com.entity.Login;
 import br.com.entity.Session;
+import br.com.entity.SessionID;
 import br.com.model.UsuarioDAO;
 import br.com.view.account.FormHome;
 import java.sql.ResultSet;
@@ -151,12 +152,11 @@ public class FormLogin extends javax.swing.JFrame {
 
     private void jBentrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBentrarActionPerformed
         try{
-            int id_usuario;
             String usuario;
             String senha;
             String email;
         
-            id_usuario = l.getId_usuario();
+            
             usuario = jTusuario.getText();
             senha = String.valueOf(jTsenha.getPassword());
             email = l.getEmail();
@@ -170,13 +170,17 @@ public class FormLogin extends javax.swing.JFrame {
                 fp.setVisible(true);
                 dispose();
                 
-                Session ss = Session.getInstance();
+                SessionID ssi = new SessionID();
+                Session ss = new Session();
                 
-                ss.setsId_usuario(id_usuario);
+                int id_usuario;
+                id_usuario = 7;
+                
+                ssi.setSessionid(id_usuario);
                 ss.setsUsuario(usuario);
                 ss.setsSenha(senha);
                 ss.setsEmail(email);
-                
+                //JOptionPane.showMessageDialog(null,ssi.getSessionid());
                 //JOptionPane.showMessageDialog(null,(ss.getsId_usuario()+ss.getsEmail()+ss.getsSenha()+ss.getsUsuario()));
             }else if(jTusuario.getText().isEmpty() != true){
                 JOptionPane.showMessageDialog(null, "Usuário ou senha inválida");
