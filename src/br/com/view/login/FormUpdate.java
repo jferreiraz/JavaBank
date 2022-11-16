@@ -6,7 +6,6 @@
 package br.com.view.login;
 
 import br.com.entity.Login;
-import br.com.entity.Session;
 import br.com.model.UsuarioDAO;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -18,7 +17,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FormUpdate extends javax.swing.JFrame {
     Login l = new Login();
-    Session ss = Session.getInstance();
     UsuarioDAO ud = new UsuarioDAO();
     /**
      * Creates new form FormUpdate
@@ -26,10 +24,10 @@ public class FormUpdate extends javax.swing.JFrame {
     public FormUpdate() {
         initComponents();
         
-        jLid.setText(String.valueOf(ss.getsId_usuario()));
+        jLid.setText(String.valueOf(l.getId_usuario()));
         //String.valueOf(jTsenha.getPassword());
-        jTusuario.setText(ss.getsUsuario());
-        jTemail.setText(ss.getsEmail());
+        jTusuario.setText(l.getUsuario());
+        jTemail.setText(l.getEmail());
         //jTtelefone.setText(String.valueOf(ss.getsTelefone()));
         
         try {
@@ -39,13 +37,13 @@ public class FormUpdate extends javax.swing.JFrame {
                 for (int i = 0; i < ls.size(); i++) {
                     l = ls.get(i);
                     //alunopesque.addRow(new Object[]{l.getId_usuario(),l.getUsuario(),l.getEmail(),ss.getsTelefone(),ss.getsSaldo(),ss.getsNumero_conta(),ss.getsData_criacao()});
-                    jTtelefone.setText(String.valueOf(ss.getsTelefone()));
+                    jTtelefone.setText(String.valueOf(l.getTelefone()));
                 }
             }else{
                 //l.setId_usuario(Integer.valueOf(jTpesquisar.getText()));
                 //ud.PesquisarRegistro(ss);
                 //alunopesque.addRow(new Object[]{l.getId_usuario(),l.getUsuario(),l.getEmail(),ss.getsTelefone(),ss.getsSaldo(),ss.getsNumero_conta(),ss.getsData_criacao()});
-                jTtelefone.setText(String.valueOf(ss.getsTelefone()));
+                jTtelefone.setText(String.valueOf(l.getTelefone()));
             }
 
             //jTpesquisar.setText(null);

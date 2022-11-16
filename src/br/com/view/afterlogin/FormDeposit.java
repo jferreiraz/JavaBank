@@ -6,7 +6,6 @@
 package br.com.view.afterlogin;
 
 import br.com.entity.Login;
-import br.com.entity.Session;
 import br.com.model.UsuarioDAO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +17,7 @@ import java.util.logging.Logger;
 public class FormDeposit extends javax.swing.JFrame {
     Login l = new Login();
     UsuarioDAO ud = new UsuarioDAO();
-    Session ss = Session.getInstance();
+
     /**
      * Creates new form FormDeposit
      */
@@ -43,6 +42,7 @@ public class FormDeposit extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLatual = new javax.swing.JLabel();
+        jLusuario = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -64,6 +64,8 @@ public class FormDeposit extends javax.swing.JFrame {
         jLabel4.setText("Último depósito:");
 
         jLatual.setText("0.00");
+
+        jLusuario.setText("0.0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,13 +94,19 @@ public class FormDeposit extends javax.swing.JFrame {
                         .addGap(136, 136, 136)
                         .addComponent(jButton1)))
                 .addContainerGap(80, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLusuario)
+                .addGap(110, 110, 110))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jLabel1)
-                .addGap(67, 67, 67)
+                .addGap(35, 35, 35)
+                .addComponent(jLusuario)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTdepositar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -120,25 +128,32 @@ public class FormDeposit extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        /*String vdeposito = jTdepositar.getText();
-        Double transacao;
-
-        transacao = l.makeDeposit(Double.valueOf(vdeposito));
+        l.setDeposito(Double.valueOf(jTdepositar.getText()));
+        jLatual.setText("R$"+l.getDeposito());
+        jLsaldo.setText("R$"+l.total());
+        //ud.transactionsValue(l);
         
         try {
-            //ud.inserir(l);
-            ud.transactions(l,ss);
-            ss.setsSaldo(l.makeDeposit(Double.valueOf(vdeposito)));
+            /**
+            l.setDeposito(Double.valueOf(jTdepositar.getText()));
+            l.setUsuario("12");  
+            jLatual.setText("R$"+l.getDeposito());
+            jLsaldo.setText("R$"+l.total());
+        
+            l.setSaldo(l.makeDeposit(Double.valueOf(jTdepositar.getText())));
+            ud.transactions(l);*/
+            ud.transactionsValue(l);
+            
+            l.setSaldo(l.makeDeposit(Double.valueOf(jTdepositar.getText())));
+            l.setUsuario("1");
+            ud.transactions(l);
         } catch (Exception ex) {
             System.out.println(ex);
             Logger.getLogger(FormDeposit.class.getName()).log(Level.SEVERE, null, ex);
             
-        }*/
+        }
         
-            l.setDeposito(Double.valueOf(jTdepositar.getText()));
-            jLatual.setText("R$"+l.getDeposito());
-            jLsaldo.setText("R$"+l.total());
-            ss.setsSaldo(l.makeDeposit(Double.valueOf(jTdepositar.getText())));
+           
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -185,6 +200,7 @@ public class FormDeposit extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLatual;
     private javax.swing.JLabel jLsaldo;
+    private javax.swing.JLabel jLusuario;
     private javax.swing.JTextField jTdepositar;
     // End of variables declaration//GEN-END:variables
 }

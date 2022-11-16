@@ -7,11 +7,8 @@ package br.com.view.login;
 
 import br.com.entity.Functions;
 import br.com.entity.Login;
-import br.com.entity.Session;
 import br.com.model.UsuarioDAO;
 import java.sql.Date;
-import java.time.LocalTime;
-import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -25,7 +22,6 @@ public class FormRegister extends javax.swing.JFrame {
     Login l = new Login();
     UsuarioDAO ud = new UsuarioDAO();
     Functions f = new Functions();
-    Session ss = Session.getInstance();
     
     /**
      * Creates new form FormRegister
@@ -146,7 +142,6 @@ public class FormRegister extends javax.swing.JFrame {
 
     private void jBmenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBmenuActionPerformed
         fl.setVisible(true);
-        fl.show();
         dispose();
     }//GEN-LAST:event_jBmenuActionPerformed
 
@@ -169,20 +164,18 @@ public class FormRegister extends javax.swing.JFrame {
             
             int number;
             number = f.randomNumber();
-            
+            String concatenedNumbers = "" + 2022 + number;
             Date data = new Date(System.currentTimeMillis());
 
             System.out.println(data);
-
             
             l.setUsuario(vusuario);
             l.setSenha(vsenha);
             l.setEmail(vemail);
-            ss.setsSaldo(0.0);
-            ss.setsTelefone(0);
-            ss.setsNumero_conta(number);
-            //ss.setsData_criacao(ToString(data);
-            ss.setsData_criacao(String.valueOf(data)); 
+            l.setSaldo(0.0);
+            l.setTelefone(0);
+            l.setNumero_conta(Integer.valueOf(concatenedNumbers));
+            l.setData_criacao(String.valueOf(data)); 
             
             jTusuario.setText("");
             jTsenha.setText("");
@@ -190,7 +183,7 @@ public class FormRegister extends javax.swing.JFrame {
         }
        
         try {
-            ud.inserir(l,ss);
+            ud.inserir(l);
         } catch (Exception ex) {
             System.out.println("Erro ao inserir dados.");
             Logger.getLogger(FormRegister.class.getName()).log(Level.SEVERE, null, ex);

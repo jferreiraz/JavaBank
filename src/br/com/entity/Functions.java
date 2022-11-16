@@ -26,6 +26,7 @@ public class Functions {
     public Integer randomNumber() {
         Random aleatorio = new Random();
         int valor = aleatorio.nextInt(10000);
+        valor = valor;
         System.out.println("Número gerado: " + valor);
         return valor;
   }

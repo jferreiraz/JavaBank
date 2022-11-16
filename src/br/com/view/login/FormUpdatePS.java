@@ -6,7 +6,6 @@
 package br.com.view.login;
 
 import br.com.entity.Login;
-import br.com.entity.Session;
 import br.com.model.UsuarioDAO;
 import javax.swing.JOptionPane;
 
@@ -16,7 +15,6 @@ import javax.swing.JOptionPane;
  */
 public class FormUpdatePS extends javax.swing.JFrame {
     Login l = new Login();
-    Session ss = Session.getInstance();
     UsuarioDAO ud = new UsuarioDAO();
     /**
      * Creates new form FormUpdatePS
@@ -25,8 +23,8 @@ public class FormUpdatePS extends javax.swing.JFrame {
                 
         initComponents();
         
-        jLusuario.setText(ss.getsUsuario());
-        jLsenha.setText(ss.getsSenha());
+        jLusuario.setText(l.getUsuario());
+        jLsenha.setText(l.getSenha());
         
     }
 

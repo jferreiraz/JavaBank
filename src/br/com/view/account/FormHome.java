@@ -6,8 +6,6 @@
 package br.com.view.account;
 
 import br.com.entity.Login;
-import br.com.entity.Session;
-import br.com.entity.SessionID;
 import br.com.model.UsuarioDAO;
 import br.com.view.afterlogin.FormConsult;
 import br.com.view.afterlogin.FormDeposit;
@@ -29,8 +27,6 @@ import javax.swing.JOptionPane;
 public class FormHome extends javax.swing.JFrame {
     Login l = new Login();
     UsuarioDAO ud = new UsuarioDAO();
-    Session ss = Session.getInstance();
-    SessionID ssi = new SessionID();
     /**
      * Creates new form FormPrincipal
      */
@@ -41,17 +37,17 @@ public class FormHome extends javax.swing.JFrame {
             int id_usuario;
             String email;
         
-            id_usuario = ss.getsId_usuario();
-            email = ss.getsEmail();
+            id_usuario = l.getId_usuario();
+            email = l.getEmail();
             
-            ss.setsUsuario(ss.getsUsuario());
+            l.setUsuario(l.getUsuario());
             
-            ResultSet rs = ud.dadosUsuario(ss);
+            ResultSet rs = ud.dadosUsuario(l);
             
             if(rs.next()){
              
-                ss.setsId_usuario(id_usuario);
-                ss.setsEmail(email);
+                l.setId_usuario(id_usuario);
+                l.setEmail(email);
                 
                 //JOptionPane.showMessageDialog(null,(ss.getsId_usuario()+ss.getsEmail()+ss.getsSenha()+ss.getsUsuario()));
             }else{
@@ -250,14 +246,16 @@ public class FormHome extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
+        
+        
         try{
-            JOptionPane.showMessageDialog(null,ssi.getSessionid());
-        Session ss = Session.getInstance();
+            ud.PesquisarTudo();
+        JOptionPane.showMessageDialog(null,"user: "+l.getUsuario());
         //JOptionPane.showMessageDialog(null,(l.getUsuario()+l.getId_usuario()+l.getEmail()+l.getSenha()));
         //l.setId_usuario(Integer.valueOf(ss.getsId_usuario())); 
-          ud.PesquisarRegistro(l);
+          //ud.PesquisarRegistro(l);
       //    alunopesque.addRow(new Object[]{al.getCodigo(),al.getNome(),al.getEmail()});
-          JOptionPane.showMessageDialog(null,(l.getUsuario()+l.getId_usuario()+l.getEmail()+l.getSenha()));
+          //JOptionPane.showMessageDialog(null,(l.getUsuario()+l.getId_usuario()+l.getEmail()+l.getSenha()));
         //ud.PesquisarApenas(Integer.valueOf(l.getId_usuario()));
      //   ArrayList<Login> ls = ud.PesquisarRegistro(l);
      //           for (int i = 0; i < ls.size(); i++) {
@@ -279,7 +277,6 @@ public class FormHome extends javax.swing.JFrame {
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
         FormBankInformation fh = new FormBankInformation();
-        JOptionPane.showMessageDialog(null,ssi.getSessionid());
         fh.show();
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 

@@ -1,8 +1,6 @@
 package br.com.model;
 
 import br.com.entity.Login;
-import br.com.entity.Session;
-import br.com.entity.SessionID;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,14 +25,31 @@ public class UsuarioDAO extends DAO {
         }
     }
     
-    public void transactions(Login l, Session ss) throws Exception {
+    public void transactions(Login l) throws Exception {
         try {
             abrirBanco();
-            String query = "INSERT INTO usuario (saldo)" + "values(?)";
+            String query = "UPDATE usuario set saldo=? WHERE usuario=?";
             ps = (PreparedStatement) con.prepareStatement(query);
-            ps.setDouble(1, ss.getsSaldo());
+            ps.setDouble(1, l.getSaldo());
+            ps.setString(2, l.getUsuario());
+            //ps.setString(3, l.getSenha());
 
-            ps.execute();
+            ps.executeUpdate();
+            fecharBanco();
+        } catch (Exception e) {
+            System.out.println("Erro " + e.getMessage());
+        }
+    }
+    
+    public void transactionsValue(Login l) throws Exception {
+        try {
+            abrirBanco();
+            String query = "SELECT saldo FROM usuario WHERE usuario=?";
+            ps = (PreparedStatement) con.prepareStatement(query);
+            ps.setString(1, l.getUsuario());
+            //ps.setString(2, l.getSenha());
+
+            ps.executeUpdate();
             fecharBanco();
         } catch (Exception e) {
             System.out.println("Erro " + e.getMessage());
@@ -42,12 +57,12 @@ public class UsuarioDAO extends DAO {
     }
 
     
-    public ResultSet dadosUsuario(Session ss) {
+    public ResultSet dadosUsuario(Login l) {
         try {
             abrirBanco();
             String query = "select * FROM usuario where usuario=?";
             ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(query);
-            ps.setString(1, ss.getsUsuario());
+            ps.setString(1, l.getUsuario());
             ResultSet tr = ps.executeQuery();
             return tr;
 
@@ -57,7 +72,7 @@ public class UsuarioDAO extends DAO {
         }
     }
 
-    public void inserir(Login l, Session ss) throws Exception {
+    public void inserir(Login l) throws Exception {
         try {
             abrirBanco();
             String query = "INSERT INTO usuario (id_usuario,usuario,senha,email,telefone,saldo,numero_conta,data_criacao)" + "values(null,?,?,?,?,?,?,?)";
@@ -65,10 +80,10 @@ public class UsuarioDAO extends DAO {
             ps.setString(1, l.getUsuario());
             ps.setString(2, l.getSenha());
             ps.setString(3, l.getEmail());
-            ps.setInt(4, ss.getsTelefone());
-            ps.setDouble(5, ss.getsSaldo());
-            ps.setInt(6, ss.getsNumero_conta());
-            ps.setString(7, ss.getsData_criacao());
+            ps.setInt(4, l.getTelefone());
+            ps.setDouble(5, l.getSaldo());
+            ps.setInt(6, l.getNumero_conta());
+            ps.setString(7, l.getData_criacao());
 
             ps.execute();
             fecharBanco();
@@ -77,22 +92,22 @@ public class UsuarioDAO extends DAO {
         }
     }
     
-    /*public void PesquisarRegistro(Session ss) throws Exception {
+    public void PesquisarRegistro(Login l) throws Exception {
         try {
             abrirBanco();
             String query = "select id_usuario, usuario, senha, email, telefone, saldo, numero_conta, data_criacao FROM usuario where id_usuario=?";
             ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(query);
-            ps.setInt(1, ss.getsId_usuario());
+            ps.setInt(1, l.getId_usuario());
             ResultSet tr = ps.executeQuery();
             if (tr.next()) {
-                ss.setsId_usuario(tr.getInt("id_usuario"));
-                ss.setsUsuario(tr.getString("usuario"));
-                ss.setsSenha(tr.getString("senha"));
-                ss.setsEmail(tr.getString("email"));
-                ss.setsTelefone(tr.getInt("telefone"));
-                ss.setsSaldo(tr.getDouble("saldo"));
-                ss.setsNumero_conta(tr.getInt("numero_conta"));
-                ss.setsData_criacao(tr.getString("data_criacao"));
+                l.setId_usuario(tr.getInt("id_usuario"));
+                l.setUsuario(tr.getString("usuario"));
+                l.setSenha(tr.getString("senha"));
+                l.setEmail(tr.getString("email"));
+                l.setTelefone(tr.getInt("telefone"));
+                l.setSaldo(tr.getDouble("saldo"));
+                l.setNumero_conta(tr.getInt("numero_conta"));
+                l.setData_criacao(tr.getString("data_criacao"));
             } else {
                 JOptionPane.showMessageDialog(null, "Nenhum resultado encontrado! ");
             }
@@ -100,7 +115,7 @@ public class UsuarioDAO extends DAO {
         } catch (Exception e) {
             System.out.println("Erro " + e.getMessage());
         }
-    }*/
+    }
     
     public ArrayList<Login> PesquisarTudo() throws Exception {
         ArrayList<Login> ls = new ArrayList<Login>();
@@ -112,7 +127,6 @@ public class UsuarioDAO extends DAO {
             ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(query);
             ResultSet tr = ps.executeQuery();
             Login l;
-            Session ss = Session.getInstance();
             while (tr.next()) {
                 l = new Login();
                 l.setId_usuario(tr.getInt("id_usuario"));
@@ -130,14 +144,12 @@ public class UsuarioDAO extends DAO {
         }
         return ls;
     }
-    
+    /**
     public void PesquisarRegistro(Login l) throws Exception {
         try {
             abrirBanco();
             String query = "select id_usuario, usuario, senha, email,telefone, saldo, numero_conta, data_criacao FROM usuario WHERE id_usuario=(?)";
             ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(query);
-            //SessionID ssi = new SessionID();
-            //ps.setInt(1, ssi.getSessionid());
             ResultSet tr = ps.executeQuery();
             if (tr.next()) {
                 l.setId_usuario(tr.getInt("id_usuario"));
@@ -154,18 +166,17 @@ public class UsuarioDAO extends DAO {
         } catch (Exception e) {
             System.out.println("Erro " + e.getMessage());
         }
-    }
+    }*/
     
     public ArrayList<Login> PesquisarApenas() throws Exception {
         ArrayList<Login> ls = new ArrayList<Login>();
         try {
             abrirBanco();
-            Session ss = Session.getInstance();
             Login l;
             l = new Login();
             String query = "select usuario, senha, email,telefone, saldo, numero_conta, data_criacao FROM usuario where id_usuario=(?)";
             ps = (com.mysql.jdbc.PreparedStatement) con.prepareStatement(query);
-            ps.setInt(1, ss.getsId_usuario());
+            ps.setInt(1, l.getId_usuario());
             ResultSet tr = ps.executeQuery();
             
             while (tr.next()) {
@@ -195,7 +206,7 @@ public class UsuarioDAO extends DAO {
         ps.setString(3, l.getEmail());
         ps.setInt(4, l.getId_usuario());
         ps.executeUpdate();
-        JOptionPane.showMessageDialog(null, "Aluno Alterado com sucesso!");
+        JOptionPane.showMessageDialog(null, "Usuario Alterado com sucesso!");
         fecharBanco();
     }
 }

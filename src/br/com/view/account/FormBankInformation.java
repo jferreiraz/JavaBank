@@ -6,7 +6,6 @@
 package br.com.view.account;
 
 import br.com.entity.Login;
-import br.com.entity.Session;
 import br.com.model.UsuarioDAO;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -18,28 +17,22 @@ import javax.swing.table.DefaultTableModel;
 public class FormBankInformation extends javax.swing.JFrame {
     Login l = new Login();
     UsuarioDAO ud = new UsuarioDAO();
-    Session ss = Session.getInstance();
     /**
      * Creates new form FormHistoric
      */
     public FormBankInformation() {
         initComponents();
         try {
-            DefaultTableModel alunopesque = (DefaultTableModel) jTresultado.getModel();
-            //if (jTpesquisar.getText().equalsIgnoreCase("")){
+            DefaultTableModel resultadopesque = (DefaultTableModel) jTresultado.getModel();
+                /**
                 ArrayList<Login> ls = ud.PesquisarTudo();
                 for (int i = 0; i < ls.size(); i++) {
                     l = ls.get(i);
-                    alunopesque.addRow(new Object[]{l.getId_usuario(),l.getUsuario(),l.getEmail(),l.getTelefone(),l.getSaldo(),l.getNumero_conta(),l.getData_criacao()});
+                    resultadopesque.addRow(new Object[]{l.getId_usuario(),l.getUsuario(),l.getEmail(),l.getTelefone(),l.getSaldo(),l.getNumero_conta(),l.getData_criacao()});
                 }
-            //}else{
-                //l.setId_usuario(Integer.valueOf(jTpesquisar.getText()));
-                //ud.PesquisarRegistro(ss);
-               // alunopesque.addRow(new Object[]{l.getId_usuario(),l.getUsuario(),l.getEmail(),ss.getsTelefone(),ss.getsSaldo(),ss.getsNumero_conta(),ss.getsData_criacao()});
-            //}
-
-            //jTpesquisar.setText(null);
-            //jTpesquisar.requestFocus();
+                */
+                ud.PesquisarRegistro(l);
+                resultadopesque.addRow(new Object[]{l.getId_usuario(),l.getUsuario(),l.getEmail(),l.getTelefone(),l.getSaldo(),l.getNumero_conta(),l.getData_criacao()});
         }
         catch (Exception e){
             System.out.println("Erro " + e.getMessage());
@@ -78,16 +71,16 @@ public class FormBankInformation extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(96, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         pack();

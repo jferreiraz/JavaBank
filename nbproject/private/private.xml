@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/Z:/POO/projetoPD/src/br/com/view/afterlogin/FormUserTransfer.java</file>
-            <file>file:/Z:/POO/projetoPD/src/br/com/view/afterlogin/FormConsult.java</file>
-            <file>file:/Z:/POO/projetoPD/src/br/com/view/login/FormLogin.java</file>
-            <file>file:/Z:/POO/projetoPD/src/br/com/view/account/FormBankInformation.java</file>
-            <file>file:/Z:/POO/projetoPD/src/br/com/entity/Login.java</file>
-            <file>file:/Z:/POO/projetoPD/src/br/com/entity/Session.java</file>
-            <file>file:/Z:/POO/projetoPD/src/br/com/view/login/FormUpdate.java</file>
-            <file>file:/Z:/POO/projetoPD/src/br/com/view/afterlogin/FormNumberTransfer.java</file>
-            <file>file:/Z:/POO/projetoPD/src/br/com/model/UsuarioDAO.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

@@ -6,7 +6,6 @@
 package br.com.view.afterlogin;
 
 import br.com.entity.Login;
-import br.com.entity.Session;
 import br.com.model.UsuarioDAO;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -18,7 +17,6 @@ import javax.swing.table.DefaultTableModel;
 public class FormConsult extends javax.swing.JFrame {
     Login l = new Login();
     UsuarioDAO ud = new UsuarioDAO();
-    Session ss = Session.getInstance();
     /**
      * Creates new form FormConsult
      */
@@ -34,11 +32,11 @@ public class FormConsult extends javax.swing.JFrame {
         
         */
         try {
-            DefaultTableModel alunopesque = (DefaultTableModel) jTresultado.getModel();
+            DefaultTableModel resultadopesque = (DefaultTableModel) jTresultado.getModel();
                 ArrayList<Login> ls = ud.PesquisarTudo();
                 for (int i = 0; i < ls.size(); i++) {
                     l = ls.get(i);
-                    alunopesque.addRow(new Object[]{l.getId_usuario(),l.getUsuario(),l.getNumero_conta()});
+                    resultadopesque.addRow(new Object[]{l.getId_usuario(),l.getUsuario(),l.getNumero_conta()});
                 }
         }
         catch (Exception e){

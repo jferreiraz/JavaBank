@@ -7,7 +7,6 @@
 package br.com.view.afterlogin;
 
 import br.com.entity.Login;
-import br.com.entity.Session;
 import br.com.model.UsuarioDAO;
 
 /**
@@ -17,7 +16,6 @@ import br.com.model.UsuarioDAO;
 public class FormWithdraw extends javax.swing.JFrame {
     Login l = new Login();
     UsuarioDAO ud = new UsuarioDAO();
-    Session ss = Session.getInstance();
     /** Creates new form FormWithdraw */
     public FormWithdraw() {
         initComponents();
@@ -119,7 +117,7 @@ public class FormWithdraw extends javax.swing.JFrame {
         l.setSaque(Double.valueOf(jTsacar.getText()));
             jLsaque.setText("R$ -"+l.getSaque());
             jLsaldo.setText("R$ "+l.total());
-            ss.setsSaldo(l.makeDeposit(Double.valueOf(jTsacar.getText())));
+            l.setSaldo(l.makeDeposit(Double.valueOf(jTsacar.getText())));
     }//GEN-LAST:event_jBsacarActionPerformed
 
     /**

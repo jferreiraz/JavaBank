@@ -7,7 +7,7 @@ public class Login {
     private String email;
     private int numero_conta;
     private int telefone;
-    private double saldo;
+    private Double saldo;
     private String data_criacao;
     private double saque;
     private double deposito;
