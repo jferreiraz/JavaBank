@@ -10,6 +10,8 @@ Implementações
   gerador de conta
   transferencia de dados
   
+ <br><br><br>
+  
   Videos no youtube explicando o funcionamento do código:
   
   Funcionamento da aplicação (PT-BR):
